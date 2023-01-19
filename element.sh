@@ -7,5 +7,17 @@ then
     echo "Please provide an element as an argument.";
 else
     #check if argument contains a letter (hence, not being a valid atomic number)
+    if ! [[ $1 =~ [a-Z] ]]
+    then
+        #get atomic_number
+        ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE atomic_number=$1;");
+    else
+        if [[ ${#1} -le 2 ]]
+        then
+            ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE symbol='$1';");
+	    else
+            ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE name='$1';");
+        fi
+    fi
     
 fi
