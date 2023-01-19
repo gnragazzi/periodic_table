@@ -19,5 +19,10 @@ else
             ATOMIC_NUMBER=$($PSQL "SELECT atomic_number FROM elements WHERE name='$1';");
         fi
     fi
-    
+    if [[ -z $ATOMIC_NUMBER ]]
+    then
+        echo "I could not find that element in the database.";
+    else
+        #get data
+    fi
 fi
